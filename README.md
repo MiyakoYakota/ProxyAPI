@@ -3,7 +3,7 @@
 ##### A lightweight cron-based proxy-dispensing REST API created fully in Python.
 
 ## What does this do?
-As of now, not much. Right now the program will import proxies from respective folders in `./input/` and store them in a SQLite database.
+As of now, the program will load proxies into ``proxies.db``, and then serve them using the REST api (Serve.py)
 
 ## Usage:
 First time use and future use
@@ -15,6 +15,8 @@ First time use and future use
   - Put SOCKS4 proxies in `input/socks4/`
   - Put SOCKS5 proxies in `input/socks5/`
   - Run `python LoadProxies.py`
+### Serving Proxies:
+  - Run the server ``python Serve.py``
 
 ## Questions:
 Have any questions on how to use this program? Feel free to do any of the following:
