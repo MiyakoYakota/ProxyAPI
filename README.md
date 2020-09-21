@@ -3,7 +3,7 @@
 ##### A lightweight cron-based proxy-dispensing REST API created fully in Python.
 
 ## What does this do?
-As of now, the program will load proxies into ``proxies.db``, and then serve them using the REST api (Serve.py)
+As of now, the program will load proxies into ``proxies.db``, and then serve them using the REST API (Serve.py)
 
 ## Usage:
 First time use and future use
