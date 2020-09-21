@@ -1,0 +1,4 @@
+sqlalchemy
+flask
+flask_restful
+datetime
