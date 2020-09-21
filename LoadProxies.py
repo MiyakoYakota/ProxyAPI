@@ -58,7 +58,7 @@ input("Press enter to continue. ")
 for proxy in http_proxies:
     if proxy:
         try:
-            http_proxy = http(proxy=proxy, added=currentTime, lastChecked=currentTime)
+            http_proxy = http(proxy=proxy, ping=0, added=currentTime, lastChecked=currentTime)
             session.add(http_proxy)
         except:
             print("Failed to import proxy (duplicate?) " + proxy)
@@ -67,7 +67,7 @@ session.commit()
 for proxy in socks4_proxies:
     if proxy:
         try:
-            socks4_proxy = socks4(proxy=proxy, added=currentTime, lastChecked=currentTime)
+            socks4_proxy = socks4(proxy=proxy, ping=0, added=currentTime, lastChecked=currentTime)
             session.add(socks4_proxy)
         except:
             print("Failed to import proxy (duplicate?) " + proxy)
@@ -76,7 +76,7 @@ session.commit()
 for proxy in socks5_proxies:
     if proxy:
         try:
-            socks5_proxy = socks4(proxy=proxy, added=currentTime, lastChecked=currentTime)
+            socks5_proxy = socks4(proxy=proxy, ping=0, added=currentTime, lastChecked=currentTime)
             session.add(socks5_proxy)
         except:
             print("Failed to import proxy (duplicate?) " + proxy)
