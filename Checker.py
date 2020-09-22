@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 import requests
 import time
+from datetime import datetime
 from multiprocessing import Pool
 from multiprocessing import freeze_support # Windows Support
 
@@ -32,16 +33,22 @@ def checkAndWriteHTTP(proxy):
     print(f"Checking Proxy #{proxyID} - {combo}")
     try:
         start = time.process_time()
-        response = requests.get('http://azenv.net/', proxies={"http": "http://"+combo}, timeout=10) # Send the data and assign the response to the variable response
+        response = requests.get('http://azenv.net/', proxies={"http": "http://"+combo}, timeout=15) # Send the data and assign the response to the variable response
         end = time.process_time()
         if "REMOTE_ADDR = " + combo.split(':')[0] in response.text:
             print(f"[Good Proxy] ID: {proxyID} - Combo: {combo} - Ping: {str(end - start)}")
+            conn = e.connect()
+            conn.execute("UPDATE http SET lastChecked = '{checkedAt}' WHERE id = {id}".format(checkedAt=datetime.now().strftime(("%Y-%m-%d %H:%M:%S")), id=str(proxyID)))
             return True
         else:
-            #print(f"[Bad Proxy] ID: {proxyID} - Combo: {combo} - Ping: {str(end - start)}")
+            conn = e.connect()
+            conn.execute("DELETE FROM http WHERE id = %s" % str(proxyID))
+            print("Deleted Proxy " + str(proxyID))
             return False
     except:
-        #print(f"[Bad Proxy] ID: {proxyID} - Combo: {combo}")
+        conn = e.connect()
+        conn.execute("DELETE FROM http WHERE id = %s" % str(proxyID))
+        print("Deleted Proxy " + str(proxyID))
         return False
 # --------------------------------------------------------------------------------------------
 def main():
