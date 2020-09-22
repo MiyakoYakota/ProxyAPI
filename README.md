@@ -15,6 +15,8 @@ First time use and future use
   - Put SOCKS4 proxies in `input/socks4/`
   - Put SOCKS5 proxies in `input/socks5/`
   - Run `python LoadProxies.py`
+### Checking Proxies:
+  - Run the checker ``python Checker.py``
 ### Serving Proxies:
   - Run the server ``python Serve.py``
 
