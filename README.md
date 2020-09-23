@@ -17,7 +17,7 @@ First time use and future use
   - Run `python LoadProxies.py`
 ### Checking Proxies:
   - Run the checker ``python Checker.py``
-  - Set this as a cron-job for always checked proxies
+  - Set this as a watch job for always checked proxies `watch --interval=3600 python Checker.py`
 ### Serving Proxies:
   - Run the server ``python Serve.py``
 
