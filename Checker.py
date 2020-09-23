@@ -54,7 +54,7 @@ def checkAndWriteHTTP(proxy):
 def main():
     all_http_proxies = getAllHTTP()
     freeze_support()
-    numThreads = int(input("Threads: "))
+    numThreads = 400
     
     pool = Pool(int(numThreads))  # Start 4 threads
     pool.map(checkAndWriteHTTP, all_http_proxies) # Checky Checky
