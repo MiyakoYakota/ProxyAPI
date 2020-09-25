@@ -3,8 +3,7 @@
 ##### A lightweight cron-based proxy-dispensing REST API created fully in Python.
 
 ## What does this do?
-As of now, the program will load proxies into ``proxies.db``, and then serve them using the REST API (Serve.py)
-
+This service will load, serve, and check HTTP(S)/SOCKS4/SOCKS5 proxies.
 ## Usage:
 First time use and future use
 ### Setup:
@@ -17,6 +16,7 @@ First time use and future use
   - Run `python LoadProxies.py`
 ### Checking Proxies:
   - Run the checker ``python Checker.py``
+  - Set this as a watch job for always checked proxies `watch --interval=3600 python Checker.py`
 ### Serving Proxies:
   - Run the server ``python Serve.py``
 

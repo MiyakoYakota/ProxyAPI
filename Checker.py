@@ -96,7 +96,7 @@ def main():
     all_socks4_proxies = getAllSOCKS4()
     all_socks5_proxies = getAllSOCKS5()
     freeze_support()
-    numThreads = int(input("Threads: "))
+    numThreads = 400
     
     pool = Pool(int(numThreads))
     pool.map(checkAndWriteHTTP, all_http_proxies)
@@ -107,5 +107,6 @@ def main():
     #time.sleep(5)
     pool.map(checkAndWriteSOCKS5, all_socks5_proxies)
     print("Checked " + str(len(all_socks5_proxies)) + " SOCKS5 Proxies")
+
 if __name__ == "__main__":
     main()
