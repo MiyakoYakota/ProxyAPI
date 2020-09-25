@@ -56,8 +56,8 @@ def main():
     freeze_support()
     numThreads = 400
     
-    pool = Pool(int(numThreads))  # Start 4 threads
-    pool.map(checkAndWriteHTTP, all_http_proxies) # Checky Checky
+    pool = Pool(int(numThreads))
+    pool.map(checkAndWriteHTTP, all_http_proxies)
 
 if __name__ == "__main__":
     main()
