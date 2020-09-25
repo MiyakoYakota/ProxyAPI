@@ -10,7 +10,7 @@ Base = declarative_base()
 class http(Base):
     __tablename__ = 'http'
     id = Column(Integer, primary_key=True)
-    proxy = Column(String(21), nullable=False, unique=True)
+    proxy = Column(String(21), nullable=False)
     ping = Column(Integer(), nullable=False)
     added = Column(String(19), nullable=False)
     lastChecked = Column(String(19), nullable=False)
@@ -18,7 +18,7 @@ class http(Base):
 class socks4(Base):
     __tablename__ = 'socks4'
     id = Column(Integer, primary_key=True)
-    proxy = Column(String(21), nullable=False, unique=True)
+    proxy = Column(String(21), nullable=False)
     ping = Column(Integer(), nullable=False)
     added = Column(String(19), nullable=False)
     lastChecked = Column(String(19), nullable=False)
@@ -26,7 +26,7 @@ class socks4(Base):
 class socks5(Base):
     __tablename__ = 'socks5'
     id = Column(Integer, primary_key=True)
-    proxy = Column(String(21), nullable=False, unique=True)
+    proxy = Column(String(21), nullable=False)
     ping = Column(Integer(), nullable=False)
     added = Column(String(19), nullable=False)
     lastChecked = Column(String(19), nullable=False)

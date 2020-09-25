@@ -88,4 +88,4 @@ api.add_resource(socks5_proxies_all, '/api/socks5/all')
 api.add_resource(socks5_proxies, '/api/socks5/<int:proxy_count>')
 
 if __name__ == '__main__':
-     app.run()
+    app.run()

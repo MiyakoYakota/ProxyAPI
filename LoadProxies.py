@@ -10,6 +10,7 @@ from Schema import Base, http, socks4, socks5
 from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+
 engine = create_engine('sqlite:///proxies.db')
 Base.metadata.bind = engine # Bind the engine to the metadata of the Base class
 DBSession = sessionmaker(bind=engine)
@@ -25,6 +26,9 @@ socks4_proxies = []
 
 socks5_dir = './input/socks5'
 socks5_proxies = []
+
+e = create_engine('sqlite:///proxies.db')
+conn = e.connect()
 
 ## Import HTTP proxies from ./input/http
 for root, dirs, files in os.walk(http_dir):
@@ -43,12 +47,13 @@ for root, dirs, files in os.walk(socks4_dir):
         socks4_proxies.extend(file_line_list)
 
 ## Import SOCKS5 proxies from ./input/socks5
-for root, dirs, files in os.walk(socks4_dir):
+for root, dirs, files in os.walk(socks5_dir):
     for file in files:
         # read all lines from file
         file_line_list = [line.rstrip('\n') for line in open(os.path.join(root, file), 'r')]
         # append to proxy_list
         socks5_proxies.extend(file_line_list)
+        
 
 
 # Proxy loading
@@ -76,7 +81,7 @@ session.commit()
 for proxy in socks5_proxies:
     if proxy:
         try:
-            socks5_proxy = socks4(proxy=proxy, ping=0, added=currentTime, lastChecked=currentTime)
+            socks5_proxy = socks5(proxy=proxy, ping=0, added=currentTime, lastChecked=currentTime)
             session.add(socks5_proxy)
         except:
             print("Failed to import proxy (duplicate?) " + proxy)
