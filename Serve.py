@@ -33,7 +33,38 @@ class proxies(Resource):
             else:
                 return socks4_proxies.get(object, args['limit'])
 
-# --------------------------------------------------------------------------------------------
+
+class statistics(Resource):
+    def __init__(self):
+        self.reqparse = reqparse.RequestParser()
+        self.reqparse.add_argument('type', type = str, choices=('http', 'socks4', 'socks5'), help = 'Invalid type provided')
+        super(statistics, self).__init__()
+    def get(self):
+        args = self.reqparse.parse_args()
+        if args['type']:
+            if args['type'] == 'http':
+                return {'count': self.getHTTPCount()}
+            if args['type'] == 'socks4':
+                return {'count': self.getSOCKS4Count()}
+            if args['type'] == 'socks5':
+                return {'count': self.getSOCKS5Count()}
+        else:
+            res = {'http': self.getHTTPCount(), 'socks4': self.getSOCKS4Count(), 'socks5': self.getSOCKS5Count()}
+            return res
+    def getHTTPCount(self):
+        conn = e.connect()
+        query = conn.execute("select COUNT() from http")
+        return [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor][0]['COUNT()']
+    def getSOCKS4Count(self):
+        conn = e.connect()
+        query = conn.execute("select COUNT() from socks4")
+        return [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor][0]['COUNT()']
+    def getSOCKS5Count(self):
+        conn = e.connect()
+        query = conn.execute("select COUNT() from socks5")
+        return [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor][0]['COUNT()']
+
+
 class http_proxies_all(Resource):
     def get(self):
         conn = e.connect()
@@ -47,7 +78,8 @@ class http_proxies(Resource):
         query = conn.execute("select * from http ORDER BY RANDOM() LIMIT '%s'" % proxy_count)
         result = [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]
         return result
-# --------------------------------------------------------------------------------------------
+
+
 class socks4_proxies_all(Resource):
     def get(self):
         conn = e.connect()
@@ -61,7 +93,8 @@ class socks4_proxies(Resource):
         query = conn.execute("select * from socks4 ORDER BY RANDOM() LIMIT '%s'" % proxy_count)
         result = [dict(zip(tuple (query.keys()) ,i)) for i in query.cursor]
         return result
-# --------------------------------------------------------------------------------------------
+
+
 class socks5_proxies_all(Resource):
     def get(self):
         conn = e.connect()
@@ -77,6 +110,7 @@ class socks5_proxies(Resource):
         return result
 
 api.add_resource(proxies, '/api/proxies')
+api.add_resource(statistics, '/api/stats')
 
 api.add_resource(http_proxies_all, '/api/http/all')
 api.add_resource(http_proxies, '/api/http/<int:proxy_count>')

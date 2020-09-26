@@ -1,3 +1,4 @@
 
 *.txt
 proxies.db
+*.pyc
