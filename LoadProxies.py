@@ -37,6 +37,9 @@ for root, dirs, files in os.walk(http_dir):
         file_line_list = [line.rstrip('\n') for line in open(os.path.join(root, file), 'r')]
         # append to proxy_list
         http_proxies.extend(file_line_list)
+        if '.txt' in file:
+            os.remove(os.path.join(root, file))
+            print("Loaded and deleted " + os.path.join(root, file))
 
 ## Import SOCKS4 proxies from ./input/socks4
 for root, dirs, files in os.walk(socks4_dir):
@@ -45,6 +48,9 @@ for root, dirs, files in os.walk(socks4_dir):
         file_line_list = [line.rstrip('\n') for line in open(os.path.join(root, file), 'r')]
         # append to proxy_list
         socks4_proxies.extend(file_line_list)
+        if '.txt' in file:
+            os.remove(os.path.join(root, file))
+            print("Loaded and deleted " + os.path.join(root, file))
 
 ## Import SOCKS5 proxies from ./input/socks5
 for root, dirs, files in os.walk(socks5_dir):
@@ -53,12 +59,12 @@ for root, dirs, files in os.walk(socks5_dir):
         file_line_list = [line.rstrip('\n') for line in open(os.path.join(root, file), 'r')]
         # append to proxy_list
         socks5_proxies.extend(file_line_list)
-        
+        if '.txt' in file:
+            os.remove(os.path.join(root, file))
+            print("Loaded and deleted " + os.path.join(root, file))
 
 
 # Proxy loading
-print("I am about to import proxies from their respective directories, this is what you want to do, right?")
-input("Press enter to continue. ")
 ## Load HTTP proxies
 for proxy in http_proxies:
     if proxy:
